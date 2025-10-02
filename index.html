@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <title>Планировшик дел</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="./css/style.css" rel="stylesheet">
+</head>
+<body>
+  <header>
+  <div class="header-top">
+    <h1>Uzum Market</h1>
+    <div class="header-actions">
+      <button id="theme-toggle" aria-label="Переключить тему">🌙</button>
+      <div id="account-btn">
+        <img src="./icons/user.png" alt="Аккаунт" width="20">
+        <span>Аккаунт</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="stats">
+    <span>Всего: <strong id="total">0</strong></span>
+    <span>Выполнено: <strong id="done">0</strong></span>
+    <span>Просрочено: <strong id="overdue">0</strong></span>
+  </div>
+</header>
+
+  <main>
+    <form id="new-task-form" autocomplete="off">
+      <input id="task-input" type="text" placeholder="Что сделать?" required autocomplete="off" name="taskText">
+      <input id="task-date" type="date" required autocomplete="off" name="taskDate">
+      <input id="task-time" type="time" name="taskTime">
+
+      <select id="task-category" required>
+        <option value="Работа">Работа</option>
+        <option value="Учёба">Учёба</option>
+        <option value="Дом">Дом</option>
+        <option value="Другое">Другое</option>
+      </select>
+
+      <select id="task-priority" required>
+        <option value="Низкий">Низкий приоритет</option>
+        <option value="Средний" selected>Средний приоритет</option>
+        <option value="Высокий">Высокий приоритет</option>
+      </select>
+
+      <button type="submit">Добавить</button>
+    </form>
+
+    <!-- Поиск и фильтрация -->
+    <div id="filters">
+      <input id="search" type="text" placeholder="Поиск задач..." autocomplete="off" name="search">
+      <select id="filter-category">
+        <option value="all">Все категории</option>
+        <option value="Работа">Работа</option>
+        <option value="Учёба">Учёба</option>
+        <option value="Дом">Дом</option>
+        <option value="Другое">Другое</option>
+      </select>
+    </div>
+
+    <div id="data-tools">
+      <button id="export-btn" type="button">Экспорт задач</button>
+      <input type="file" id="import-file" style="display:none;" accept=".json">
+      <button id="import-btn" type="button">Импорт задач</button>
+    </div>
+
+    <!-- Навигация -->
+    <div id="main-nav">
+      <div class="nav-item" id="nav-tasks">
+        <img src="./icons/tasks.png" alt="Задачи" width="28">
+        <span>Задачи</span>
+      </div>
+      <div class="nav-item" id="nav-calendar">
+        <img src="./icons/calendar.png" alt="Календарь" width="28">
+        <span>Календарь</span>
+      </div>
+      <div class="nav-item" id="nav-mission">
+        <img src="./icons/mission.png" alt="Миссия" width="28">
+        <span>Миссия</span>
+      </div>
+      <div class="nav-item" id="nav-more">
+        <img src="./icons/more.png" alt="Ещё" width="28">
+        <span>Ещё</span>
+      </div>
+    </div>
+
+    <!-- Плитки категорий -->
+    <div id="task-sections">
+      <div class="task-section">
+        <div class="section-header" data-target="overdue-list">
+          Просроченные задачи <span class="count" id="overdue-count">0</span>
+        </div>
+        <ul class="section-list" id="overdue-list"></ul>
+      </div>
+
+      <div class="task-section">
+        <div class="section-header" data-target="today-list">
+          Задачи на сегодня <span class="count" id="today-count">0</span>
+        </div>
+        <ul class="section-list" id="today-list"></ul>
+      </div>
+
+      <div class="task-section">
+        <div class="section-header" data-target="upcoming-list">
+          Предстоящие задачи <span class="count" id="upcoming-count">0</span>
+        </div>
+        <ul class="section-list" id="upcoming-list"></ul>
+      </div>
+
+      <div class="task-section">
+        <div class="section-header" data-target="done-list">
+          Завершённые задачи <span class="count" id="done-count-tile">0</span>
+        </div>
+        <ul class="section-list" id="done-list"></ul>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Модальное окно редактирования -->
+<div id="edit-modal" class="modal">
+  <div class="modal-content">
+    <h2>Редактировать задачу</h2>
+    <input type="text" id="edit-text">
+    <input type="date" id="edit-date">
+    <input type="time" id="edit-time">
+    <select id="edit-category">
+      <option value="Работа">Работа</option>
+      <option value="Учёба">Учёба</option>
+      <option value="Дом">Дом</option>
+      <option value="Другое">Другое</option>
+    </select>
+    <select id="edit-priority">
+      <option value="Низкий">Низкий приоритет</option>
+      <option value="Средний">Средний приоритет</option>
+      <option value="Высокий">Высокий приоритет</option>
+    </select>
+    <div class="modal-buttons">
+      <button id="save-edit">Сохранить</button>
+      <button id="cancel-edit">Отмена</button>
+    </div>
+  </div>
+</div>
+
+<!-- Модальное окно аккаунта -->
+  <div id="account-modal" class="modal">
+    <div class="modal-content">
+      <span id="close-account" class="close">&times;</span>
+      <h2>Мой аккаунт</h2>
+
+      <div id="auth-section">
+        <input id="username" type="text" placeholder="Введите имя" required
+       autocomplete="username" name="username" autocapitalize="none" spellcheck="false">
+        <input id="password" type="password" placeholder="Введите пароль" required
+       autocomplete="current-password" name="password">
+        <button id="register-btn" type="button">Регистрация</button>
+        <button id="login-btn" type="button">Войти</button>
+      </div>
+
+      <div id="logout-section" style="display:none;">
+        <p>Вы вошли как <span id="current-user"></span></p>
+        <button id="logout-btn">Выйти</button>
+      </div>
+    </div>
+  </div>
+
+<script src="./js/app.js"></script>
+</body>
+</html>
