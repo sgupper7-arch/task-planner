@@ -1,0 +1,532 @@
+* { box-sizing: border-box; }
+body { max-width: 720px; margin: 0 auto; padding: 16px; font-family: system-ui, Arial, sans-serif; line-height: 1.4; }
+header { position: sticky; top: 0; background: #fff; padding: 8px 0; border-bottom: 1px solid #eee; margin-bottom: 16px; }
+h1 { margin: 0; font-size: 24px; }
+form { display: flex; gap: 8px; margin-bottom: 12px; }
+#task-input { flex: 1; padding: 8px; }
+button { padding: 8px 12px; cursor: pointer; }
+#task-list { list-style: none; padding: 0; margin: 0; }
+#task-list li { display: flex; align-items: center; justify-content: space-between; padding: 8px; border: 1px solid #eee; border-radius: 6px; margin-bottom: 8px; }
+#task-list li.done { opacity: 0.6; text-decoration: line-through; }
+#logout { margin-top: 6px; }
+#logout button { margin-left: 8px; }
+
+/* --- Новый дизайн --- */
+button {
+  background: #ff6600;  /* ярко-оранжевый */
+  border: none;
+  border-radius: 6px;
+  padding: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+button img {
+  display: block;
+}
+
+button:hover {
+  background: #e65c00; /* чуть темнее при наведении */
+}
+
+body {
+  background: #fdf5e6; /* мягкий бежевый фон */
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
+header {
+  background: #ff6600;
+  color: white;
+  padding: 12px;
+  text-align: center;
+  border-radius: 8px;
+}
+
+/* Статистика */
+#stats {
+  margin-top: 6px;
+  font-size: 14px;
+  color: #333;
+}
+#stats span {
+  font-weight: bold;
+}
+
+/* Категории */
+em {
+  font-size: 12px;
+  color: #666;
+}
+
+/* Верхушка шапки */
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.stats {
+  margin-top: 8px;
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  font-size: 14px;
+}
+
+/* Карточки задач */
+.section-list li {
+  background: #fff;
+  padding: 12px;
+  margin-bottom: 8px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Адаптив */
+@media (max-width: 600px) {
+  .header-top {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .stats {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  #task-list li {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  form {
+    flex-direction: column;
+  }
+
+  form input, form select, form button {
+    width: 100%;
+  }
+}
+
+/* Просроченные задачи */
+#task-list li.overdue {
+  background: #ffe5e5; /* мягкий красный фон */
+}
+
+#task-list li.overdue.priority-low {
+  border-left: 6px solid green;
+}
+#task-list li.overdue.priority-medium {
+  border-left: 6px solid orange;
+}
+#task-list li.overdue.priority-high {
+  border-left: 6px solid red;
+}
+
+
+/* Экспорт / импорт */
+#data-tools {
+  margin: 16px 0;
+  display: flex;
+  gap: 12px;
+}
+
+#data-tools button {
+  background: #333;
+  color: #fff;
+  font-size: 14px;
+  border-radius: 6px;
+  padding: 8px 12px;
+}
+
+#data-tools button:hover {
+  background: #555;
+}
+
+/* Поиск и фильтрация */
+#filters {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+#filters input,
+#filters select {
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  flex: 1;
+}
+
+/* Приоритеты */
+#task-list li.priority-low {
+  border-left: 6px solid green;
+}
+#task-list li.priority-medium {
+  border-left: 6px solid orange;
+}
+#task-list li.priority-high {
+  border-left: 6px solid red;
+}
+/* Переключатель темы */
+#theme-toggle {
+  background: transparent;
+  border: 1px solid rgba(0,0,0,.2);
+  color: #111;
+  padding: 6px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+/* Тёмная тема (включается классом .dark на <body>) */
+.dark {
+  color-scheme: dark;
+}
+
+.dark body {
+  background: #0f1216;
+  color: #e5e7eb;
+}
+
+/* Шапка в тёмной теме */
+.dark header {
+  background: #1f2937;      /* тёмно-серый */
+  color: #fff;
+  border-bottom-color: #2a2f37 !important;
+}
+
+/* Карточки задач в тёмной теме */
+.dark #task-list li {
+  background: #1a1f26;
+  border-color: #2a2f37 !important;
+  box-shadow: none;
+}
+
+/* Текст задач в тёмной теме */
+.dark #task-list li,
+.dark #task-list li span,
+.dark #task-list li strong,
+.dark #task-list li small {
+  color: #e5e7eb !important;
+}
+
+/* Просроченные задачи в тёмной теме */
+.dark #task-list li.overdue {
+  background: #2a1616; /* тёмный красноватый */
+}
+
+/* Приоритеты в тёмной теме — сохранить цветную полосу слева */
+.dark #task-list li.priority-low {
+  border-left-color: green !important;
+  border-left-width: 6px;
+  border-left-style: solid;
+}
+.dark #task-list li.priority-medium {
+  border-left-color: orange !important;
+  border-left-width: 6px;
+  border-left-style: solid;
+}
+.dark #task-list li.priority-high {
+  border-left-color: red !important;
+  border-left-width: 6px;
+  border-left-style: solid;
+}
+
+/* Подписи/мелкий текст */
+.dark em {
+  color: #9aa0a6;
+}
+
+/* Поля ввода/селекты/фильтры в тёмной теме */
+.dark input[type="text"],
+.dark input[type="date"],
+.dark select {
+  background: #11161c;
+  color: #e5e7eb;
+  border: 1px solid #2a2f37;
+}
+
+/* Кнопка переключателя в тёмной теме */
+.dark #theme-toggle {
+  border-color: rgba(255,255,255,.3);
+  color: #fff;
+}
+
+.dark #task-list li.done {
+  color: #9ca3af !important; /* серый */
+}
+
+/* Модальное окно */
+.modal {
+  display: none; /* скрыто по умолчанию */
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.5);
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+/* Тёмная тема для модального окна */
+.dark .modal-content {
+  background: #1f2937;
+  color: #fff;
+}
+.dark .modal-content input,
+.dark .modal-content select {
+  background: #11161c;
+  color: #e5e7eb;
+  border: 1px solid #2a2f37;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Кнопки справа в шапке */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Кнопка Аккаунт: иконка + текст */
+#account-btn {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #ff6600;
+  padding: 6px 12px;
+  border-radius: 30px;
+  color: #fff;
+  font-weight: 600;
+}
+#account-btn img { filter: brightness(0) invert(1); }
+
+/* Базовая модалка (подложка) */
+.modal {
+  display: none;                /* показываем из JS: 'flex' */
+  position: fixed;
+  inset: 0;                     /* top:0; right:0; bottom:0; left:0 */
+  z-index: 1000;
+  background: rgba(0,0,0,0.6);  /* затемнение всей страницы */
+  align-items: center;
+  justify-content: center;
+}
+
+/* Окно модалки (само «белое»/тёмное) */
+.modal-content {
+  position: relative;
+  z-index: 1001;                /* поверх подложки */
+  width: min(92vw, 520px);
+  border-radius: 12px;
+  padding: 24px;
+  background: #ffffff;          /* важно: непрозрачный фон для светлой темы */
+  color: #111;                  /* чёрный текст в светлой теме */
+  box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+}
+
+/* Тёмная тема для модалки */
+.dark .modal-content {
+  background: #1f2733;          /* тёмный «карточный» фон */
+  color: #fff;                   /* белый текст */
+}
+
+/* Крестик закрытия */
+.close {
+  position: absolute;
+  right: 14px;
+  top: 10px;
+  font-size: 24px;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Плитки категорий */
+.task-section {
+  margin-bottom: 12px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  background: #fff;
+}
+
+.section-header {
+  padding: 14px 16px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f97316;
+  color: white;
+}
+
+.section-list {
+  display: none; /* скрыто по умолчанию */
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.section-list li {
+  padding: 10px 14px;
+  border-top: 1px solid #eee;
+}
+
+/* Тёмная тема */
+.dark .task-section {
+  background: #1e293b;
+}
+
+.dark .section-header {
+  background: #334155;
+  color: #f8fafc;
+}
+
+.dark .section-list li {
+  background: #1a1f26;
+  border-color: #2a2f37 !important;
+  box-shadow: none;
+  color: #e5e7eb;
+}
+
+/* ---- Карточки задач внутри плиток ---- */
+
+/* Выполненные */
+.section-list li.done {
+  opacity: 0.6;
+  text-decoration: line-through;
+}
+
+/* Просроченные */
+.section-list li.overdue {
+  background: #ffe5e5; /* мягкий красный фон */
+}
+
+/* Приоритеты */
+.section-list li.priority-low {
+  border-left: 6px solid green;
+}
+.section-list li.priority-medium {
+  border-left: 6px solid orange;
+}
+.section-list li.priority-high {
+  border-left: 6px solid red;
+}
+
+/* --- Тёмная тема для плиток --- */
+.dark .section-list li.done {
+  color: #9ca3af !important;
+}
+.dark .section-list li.overdue {
+  background: #2a1616;
+}
+.dark .section-list li.priority-low {
+  border-left-color: green !important;
+}
+.dark .section-list li.priority-medium {
+  border-left-color: orange !important;
+}
+.dark .section-list li.priority-high {
+  border-left-color: red !important;
+}
+
+/* Заголовок плитки "Завершённые задачи" */
+#done-list {
+  /* сами карточки будут обычные */
+}
+
+.section-header[data-target="done-list"] {
+  background: #16a34a; /* зелёный */
+  color: white;
+}
+.dark .section-header[data-target="done-list"] {
+  background: #14532d; /* тёмно-зелёный */
+}
+
+/* --- Панель навигации --- */
+#main-nav {
+  margin: 16px 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background: #fff;
+  padding: 12px;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  color: #333;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.nav-item img {
+  margin-bottom: 4px;
+  filter: grayscale(100%) brightness(0.6);
+  transition: filter 0.2s, transform 0.2s;
+}
+
+.nav-item:hover img {
+  filter: none;
+  transform: scale(1.1);
+}
+
+.nav-item span {
+  margin-top: 2px;
+}
+
+/* Тёмная тема */
+.dark #main-nav {
+  background: #1e293b;
+}
+.dark .nav-item {
+  color: #e5e7eb;
+}
+.dark .nav-item img {
+  filter: brightness(0.8) invert(0.9);
+}
+
+.nav-item.active {
+  color: #ff6600;        /* выделяем цветом текста */
+  font-weight: 700;      /* делаем жирным */
+}
+
+.nav-item.active img {
+  filter: none !important; /* убираем серый фильтр у иконки */
+  transform: scale(1.15);  /* чуть увеличиваем иконку */
+}

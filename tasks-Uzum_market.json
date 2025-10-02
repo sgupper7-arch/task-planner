@@ -1,0 +1,74 @@
+[
+  {
+    "text": "Собрать дневных истоков",
+    "done": true,
+    "date": "2025-09-27",
+    "category": "Работа",
+    "priority": "Средний",
+    "user": "uzum_market"
+  },
+  {
+    "text": "Проводить Ген Уборку и отправить отчёта",
+    "done": false,
+    "date": "2025-09-27",
+    "category": "Работа",
+    "priority": "Средний",
+    "user": "uzum_market"
+  },
+  {
+    "text": "Подготовить возвратов до 16:45",
+    "done": true,
+    "date": "2025-09-27",
+    "category": "Работа",
+    "priority": "Средний",
+    "user": "uzum_market"
+  },
+  {
+    "text": "Собрать утренних истоков",
+    "done": true,
+    "date": "2025-09-27",
+    "category": "Работа",
+    "priority": "Высокий",
+    "user": "uzum_market"
+  },
+  {
+    "text": "Запечатать маршрутный лист и ташить возвратов в зале",
+    "done": true,
+    "date": "2025-09-27",
+    "category": "Работа",
+    "priority": "Высокий",
+    "user": "uzum_market"
+  },
+  {
+    "text": "Решать проблем с один истёкший картам",
+    "done": false,
+    "date": "2025-09-27",
+    "category": "Работа",
+    "priority": "Низкий",
+    "user": "uzum_market"
+  },
+  {
+    "text": "Решать проблем в заявление о возвратов в WMS",
+    "done": false,
+    "date": "2025-09-28",
+    "category": "Работа",
+    "priority": "Низкий",
+    "user": "uzum_market"
+  },
+  {
+    "text": "Отправить отчёта об инкасации после его сдачи",
+    "done": true,
+    "date": "2025-09-27",
+    "category": "Работа",
+    "priority": "Низкий",
+    "user": "uzum_market"
+  },
+  {
+    "text": "Выполнить приёмку и отправить отчёта",
+    "done": false,
+    "date": "2025-09-27",
+    "category": "Работа",
+    "priority": "Средний",
+    "user": "uzum_market"
+  }
+]
