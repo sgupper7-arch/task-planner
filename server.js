@@ -7,14 +7,14 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // 1) Подключение к MongoDB
-const mongoose = require("mongoose");
+require('dotenv').config();
 
-mongoose.connect(process.env.MONGO_URI, {
+mongoose.connect("mongodb+srv://sgupper7_db_user:AjKgXqifPxYfeGeW@taskplannerdb.kwfu5xs.mongodb.net/?retryWrites=true&w=majority&appName=TaskPlannerDB", {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
-  .then(() => console.log("✅ MongoDB подключен"))
-  .catch(err => console.error("❌ Ошибка MongoDB:", err));
+.then(() => console.log("✅ MongoDB подключен"))
+.catch(err => console.error("❌ Ошибка MongoDB:", err));
 
 // 2) Миддлвары
 app.use(express.json({ limit: '1mb' }));
